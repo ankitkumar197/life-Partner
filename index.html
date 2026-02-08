@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Future Partner Name Game</title>
+<style>
+body {background-color: rgba(190, 107, 171, 0.592); font-family: Arial; text-align:center; padding:30px; }
+input { padding:10px; width:220px; border-radius:10px; border:1px solid #aaa; }
+button { padding:10px 20px; margin-top:10px; border:none;
+         background:#ff246f; color:white; border-radius:10px;
+         cursor:pointer; font-size:16px; }
+.result { margin-top:20px; font-size:22px; font-weight:bold; color:#ff0066; }
+</style>
+</head>
+<body>
+
+<h2>🔮 Future Partner Predictor 🔮</h2>
+<p>Enter Your Name & Discover Your Yuture Partner!</p>
+
+<input id="name" placeholder="Enter your name" />
+<br><br>
+<label for="gender">Select gender</label>
+<select id="gender">
+  <option value="boy"> Boy</option>
+  <option value="girl">Girl</option>
+</select>
+<br><br>
+
+<button onclick="predictPartner()">Predict</button>
+
+<div id="output" class="result"></div>
+
+<script>
+
+const girlNames = ["Aarohi","Sneha","Kritika","Ananya","Sakshi","Priya","Pooja","Riya","Neha","Khushi","Niharika","Trishika","Kanika","Supriya","Pallavi"];
+const boyNames  = ["Arjun","Rohan","Aditya","Rahul","Ritesh","Sagar","Vivek","Aman","Sourav","Kunal","Ankit","Shekhar","Niraj","Dhiraj"]
+const fixedPartners = {
+    "ankit kumar": "Imaginary Person",
+    "ankit": "Imaginary Person", 
+    "ankit marsh": "Imaginary Person" ,
+     
+};
+
+function hashString(str){
+    let hash = 0;
+    for (let i=0; i<str.length; i++){
+        hash = (hash * 31 + str.charCodeAt(i)) % 100000;
+    }
+    return hash;
+}
+
+function predictPartner(){
+    let user = document.getElementById("name").value.toLowerCase().trim();
+    let gender = document.getElementById("gender").value;
+
+    if(user === ""){
+        document.getElementById("output").innerHTML = "Please enter your name!";
+        return;
+    }
+
+ if(fixedPartners[user]){
+        document.getElementById("output").innerHTML =
+        "❤ Your Future Partner is: <br><br> 👉 " + fixedPartners[user] + " ❤";
+        return;
+    }
+
+    let index = hashString(user) % 10;
+
+    let partner = gender === "boy" ? girlNames[index] : boyNames[index];
+
+    document.getElementById("output").innerHTML =
+        "❤ Your Future Partner is: <br><br> 👉 " + partner + " ❤";
+}
+
+</script>
+
+</body>
+</html>
